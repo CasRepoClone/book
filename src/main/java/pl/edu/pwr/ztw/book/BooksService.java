@@ -18,7 +18,8 @@ public class BooksService implements IBooksService {
         booksRepo.add(new Book(2, "Wesele", "2", 150));
         booksRepo.add(new Book(3, "Dziady", "3", 292));
     }
-
+    // create retrieve added 
+    // update delete to implement 
     static {
         authors.add(new authorsRepo("1", "Henryk Sienkiewicz"));
         authors.add(new authorsRepo("2", "Stanisław Reymont"));
@@ -32,6 +33,35 @@ public class BooksService implements IBooksService {
                 .filter(a -> a.getId().equals(id))
                 .findAny()
                 .orElse(null);
+    }
+
+    @Override 
+    public authorsRepo createAuthor(String id, String author){
+        authorsRepo newAuthor = new authorsRepo(id, author);
+        authors.add(newAuthor);
+        return newAuthor;
+    }
+
+    @Override 
+    public authorsRepo updateAuthor(String id, String author){
+        authorsRepo authorToUpdate = getAuthor(id);
+        if (authorToUpdate != null){
+            authorToUpdate.setAuthor(author);
+            return authorToUpdate;
+
+        }
+        return null;
+    }
+
+    // may or may not need an overide tag 
+    
+    public authorsRepo deleteAuthor(String id){
+        authorsRepo authorToDelete = getAuthor(id);
+        if (authorToDelete != null){
+            authors.remove(authorToDelete);
+            return authorToDelete;
+        }
+        return null;
     }
 
     @Override

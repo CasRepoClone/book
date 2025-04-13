@@ -1,6 +1,7 @@
 package pl.edu.pwr.ztw.book;
 
 public class Book {
+    @SuppressWarnings("FieldMayBeFinal") // supress id 
     private int id; // ignore issue with this line, it's just a warning
     private String title;
     private String author;

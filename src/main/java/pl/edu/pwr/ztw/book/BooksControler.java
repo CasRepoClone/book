@@ -3,13 +3,8 @@ package pl.edu.pwr.ztw.book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
+
 
 
 
@@ -19,33 +14,55 @@ public class BooksControler {
 
     @Autowired
     IBooksService booksService;
-    // create 
+    // create book
+    //#region -- Book --
     @RequestMapping(value = "/create/book", method=RequestMethod.POST)
     public ResponseEntity<Object> createBook(@RequestParam int id, @RequestParam String title, @RequestParam String author, @RequestParam int pages) {
         return new ResponseEntity<>(booksService.createBook(id, title, author, pages), HttpStatus.OK);
     }
-    // update 
+    // update book
     @RequestMapping(value = "/update/book/{id}", method=RequestMethod.POST)
     public ResponseEntity<Object> updateBook(@RequestParam int id, @RequestParam String title, @RequestParam String author, @RequestParam int pages) {
         return new ResponseEntity<>(booksService.updateBook(id, title, author, pages), HttpStatus.OK);
     }
-    
 
-    // read
+    // read book
     @RequestMapping(value = "/get/book/{id}", method = RequestMethod.GET)
     public ResponseEntity<Object> getBook(@PathVariable("id") int id) {
         return new ResponseEntity<>(booksService.getBook(id), HttpStatus.OK);
     }
-    // delete
+    // delete book
     @DeleteMapping("/delete/book/{id}")
     public ResponseEntity<Object> deleteBook(@PathVariable("id") int id) {
         return new ResponseEntity<>(booksService.deleteBook(id), HttpStatus.OK);
     }
-    // get the author by ID 
-    @GetMapping("/get/author/{id}")
+    //#endregion
+    
+    // create author 
+    @PostMapping("/create/author")
+    public ResponseEntity<Object> createAuthor(@RequestParam String id, @RequestParam String author) {
+        return new ResponseEntity<>(booksService.createAuthor(id, author), HttpStatus.OK);
+    }
+    // read author 
+    @GetMapping("/get/author/{id}") // in future change this to take an int 
     public ResponseEntity<Object> getAuthor(@PathVariable("id") int id) {
         return new ResponseEntity<>(booksService.getAuthor(String.valueOf(id)), HttpStatus.OK);
     }
+    // update author 
+    @PostMapping("/update/author/{id}")
+    public ResponseEntity<Object> updateAuthor(@PathVariable("id") String id, @RequestParam String author) {
+        return new ResponseEntity<>(booksService.updateAuthor(id, author), HttpStatus.OK);
+    }
+
+    //    @PostMapping("/delete/author/{id}")
+    //  public String postMethodName(@PathVariable("id") String id) {
+    //    return new ResponseEntity<>(booksService.deleteAuthor)
+    //}
+    
+     
+
+    
+    
     
     
 
