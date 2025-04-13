@@ -23,4 +23,22 @@ public class BooksService implements IBooksService {
                 .findAny()
                 .orElse(null);
     }
+    @Override
+    public Book deleteBook(int id) {
+        Book bookToDelete = getBook(id);
+        if (bookToDelete != null) {
+            booksRepo.remove(bookToDelete);
+            return bookToDelete;
+        }
+        return null;
+    }
+
+    
+    public Book createBook(int id, String title, String author, int pages) {
+        Book newBook = new Book(id, title, author, pages);
+        booksRepo.add(newBook);
+        return newBook;
+    }
+
+
 }
