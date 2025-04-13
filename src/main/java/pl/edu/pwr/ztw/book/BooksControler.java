@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 
 @RestController
@@ -17,10 +19,15 @@ public class BooksControler {
 
     @Autowired
     IBooksService booksService;
-
+    // create 
     @RequestMapping(value = "/create/book", method=RequestMethod.POST)
     public ResponseEntity<Object> createBook(@RequestParam int id, @RequestParam String title, @RequestParam String author, @RequestParam int pages) {
         return new ResponseEntity<>(booksService.createBook(id, title, author, pages), HttpStatus.OK);
+    }
+    // update 
+    @RequestMapping(value = "/update/book/{id}", method=RequestMethod.POST)
+    public ResponseEntity<Object> updateBook(@RequestParam int id, @RequestParam String title, @RequestParam String author, @RequestParam int pages) {
+        return new ResponseEntity<>(booksService.updateBook(id, title, author, pages), HttpStatus.OK);
     }
     
 
@@ -34,5 +41,12 @@ public class BooksControler {
     public ResponseEntity<Object> deleteBook(@PathVariable("id") int id) {
         return new ResponseEntity<>(booksService.deleteBook(id), HttpStatus.OK);
     }
+    // get the author by ID 
+    @GetMapping("/get/author/{id}")
+    public ResponseEntity<Object> getAuthor(@PathVariable("id") int id) {
+        return new ResponseEntity<>(booksService.getAuthor(String.valueOf(id)), HttpStatus.OK);
+    }
+    
+    
 
 }
